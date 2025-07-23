@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI太極．創作武俠視像圖</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; background-color: #eaeaea; }
+        h1 { color: #333; }
+        .category { margin-bottom: 20px;
+            line-height: 2; /* 增加行高 */
+            padding: 10px 0; /* 增加上下間距 */
+        }
+        .button-container { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; justify-content: center; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; background-color: #e1d39c; }
+        
+        .category 永續-想像太極最美好的未來 button { background-color: #f8c1e7 !important; }
+        .category 我的英雄夢 button { background-color: #93dbfc !important ; }
+        .selected { 
+            border: 1px solid #000; 
+            background-color: #dab2ee; /* 增加背景色，讓選擇更明顯 */
+            color: #000; /* 改變字體顏色，提高對比 */
+                        }
+        .copy-button, .link-button { margin-top: 20px; padding: 10px 20px; font-size: 16px; color: rgb(36, 4, 151); border: none; border-radius: 5px; cursor: pointer; }
+        .copy-button { background-color: #778ef3; }
+        .link-button { background-color: #fcc01d; text-decoration: none; display: inline-block; }
+        strong { font-size: 20px; }
+        .custom-text { margin-top: 20px; width: 80%; height: 100px; }
+        label {
+            font-size: 18px; /* 設定標籤文字大小 */
+            margin-right: 10px; /* 增加與輸入框的間距 */
+        }
+
+        input, select {
+            font-size: 16px; /* 讓輸入框內的文字稍微大一點 */
+            padding: 5px; /* 增加內部間距，讓內容不擁擠 */
+        }
+        textarea {
+           font-size: 16px; /* 讓輸入的文字變大 */
+            width: 100%; /* 讓寬度撐滿父容器 */
+            height: 80px; /* 調整高度，讓區塊變小 */
+            resize: none; /* 禁止使用者手動調整大小 */
+            padding: 5px; /* 內距，讓輸入不會貼著邊 */
+        }
+    </style>
+</head>
+<body>
+    <h1>AI太極．創作武俠視像圖</h1>
+    <label for="name" >姓名：</label>
+    <input type="text" id="name" placeholder="輸入姓名">
+    
+    <label for="gender">性別：</label>
+    <select id="gender">
+        <option value="">請選擇</option>
+        <option value="男">男</option>
+        <option value="女">女</option>
+     
+    </select>
+    
+    <label for="age">年齡：</label>
+    <select id="age">
+        <option value="">請選擇</option>
+        <option value="6歲以下">6歲以下</option>
+        <option value="7歲到12歲">7歲到12歲</option>
+        <option value="13到17歲">13到17歲</option>
+        <option value="18歲以上">18歲以上</option>
+    
+    </select>
+    
+    <div id="categories"></div>
+    
+    <textarea id="customText" class="custom-text" placeholder="心之所向..."></textarea>
+    <br>
+    <button class="copy-button" onclick="copySelected()">複製文字</button>
+    <br>
+    <h3>進入AI創作世界</h3>
+    <a href="https://padlet.com/iceautumn/padlet-13lr4l0a3gxb7g3j" target="_blank" class="link-button">AI太極作品牆</a>
+    <script>
+       const categories = {
+            "永續-想像太極最美好的未來": 
+            ["俠行天下", "義薄雲天", "見義勇為", "行俠仗義","俠義仁風", "俠士仁心", "仁者無敵",
+            "浩然正氣", "氣宇軒昂", "氣宇不凡","慷慨凜然", "豪氣萬千", "淡泊明志", "志向凌雲",
+            "志在四方", "意志剛強", "胸懷天下","萬人練功", "結交四方", "四海一家","繁花似錦", "智勇雙全", "文武雙全",
+            "道藝兼修", "內外兼修", "德才兼備","文韜武略", "剛柔並濟", "動靜皆宜","沉穩紮實", "厚積薄發", "行雲流水",
+            "心靈覺醒", "明心見性", "自強不息","格物致知", "勇敢擔當", "奮勇向上","積極向上", "強健體魄", "敏捷靈活",
+            "武耀中華", "簡璞生活", "寧靜致遠","道藝登峰", "拳藝載道", "知行合一","天人合一", "習武習德", "厚德載道",
+            "積善成德", "品德高尚", "敬天愛人","中華心學", "內聖外王", "教育札根","德慧傳家", "無限可能"
+            ],
+
+            "我的英雄夢":
+            ["太極俠道", "太極俠潮", "太極俠思", "太極俠智","太極俠慧", "太極俠心", "太極俠義","太極俠傑", "太極俠藝",
+             "太極俠影", "太極俠風", "太極忠俠", "太極仁俠","太極義俠", "太極智俠", "太極德俠","太極武俠", "太極行俠",
+            "太極遊俠", "太極奇俠", "太極群俠", "太極新俠","太極大俠", "太極少俠", "太極小俠","太極幼俠", "太極武道",
+            "太極武學", "太極武智", "太極武行", "太極武藝","太極武魂", "太極武林", "太極武境","太極武禪", "太極禪武",
+            "太極群武", "太極心武", "太極傳武", "太極武功","太極道藝", "太極拳道", "太極極境","太極神遊", "太極奧義",
+            "太極心學", "太極美學", "太極無限", "太極興邦","太極宗師", "太極教練", "太極精英","太極英雄", "太極傳承",
+            ]
+
+        };
+        
+        const selectedWords = {};
+        const categoriesContainer = document.getElementById("categories");
+        
+        Object.entries(categories).forEach(([category, words]) => {
+            const categoryDiv = document.createElement("div");
+            categoryDiv.classList.add("category");
+            categoryDiv.innerHTML = `<strong>${category}</strong>`;
+            
+            const buttonContainer = document.createElement("div");
+            buttonContainer.classList.add("button-container");
+            
+            words.forEach(word => {
+                const btn = document.createElement("button");
+                btn.textContent = word;
+                btn.classList.add(category);
+                btn.onclick = function() {
+                    if (selectedWords[category] === word) {
+                        selectedWords[category] = null;
+                        btn.classList.remove("selected");
+                    } else {
+                        if (selectedWords[category]) {
+                            document.querySelector(`button[data-category='${category}'].selected`)?.classList.remove("selected");
+                        }
+                        selectedWords[category] = word;
+                        btn.classList.add("selected");
+                    }
+                };
+                btn.setAttribute("data-category", category);
+                buttonContainer.appendChild(btn);
+            });
+            
+            categoryDiv.appendChild(buttonContainer);
+            categoriesContainer.appendChild(categoryDiv);
+        });
+        
+        function copySelected() {
+            const name = document.getElementById("name").value;
+            const gender = document.getElementById("gender").value;
+            const age = document.getElementById("age").value;
+            const customText = document.getElementById("customText").value;
+            const text = `姓名: ${name}\n  性別: ${gender}\n  年齡: ${age}\n  太極武俠夢: ` + Object.values(selectedWords).filter(Boolean).join(" ") + `\n 心之所向： ${customText}`;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("已複製:\n" + text);
+            }).catch(err => {
+                console.error("複製失敗", err);
+            });
+        }
+    </script>
+</body>
+</html>
