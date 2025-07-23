@@ -6,7 +6,10 @@
     <title>AI太極．創作武俠視像圖</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 20px; background-color: #eaeaea; }
-        h1 { color: #333; }
+        h1 { color: #927cb1; }
+	.form-row {
+	  margin-bottom: 10px; /* 行距 */
+	}
         .category { margin-bottom: 20px;
             line-height: 2; /* 增加行高 */
             padding: 10px 0; /* 增加上下間距 */
@@ -46,27 +49,29 @@
 </head>
 <body>
     <h1>AI太極．創作武俠視像圖</h1>
-    <label for="name" >姓名：</label>
-    <input type="text" id="name" placeholder="輸入姓名">
-    
-    <label for="gender">性別：</label>
-    <select id="gender">
-        <option value="">請選擇</option>
-        <option value="男">男</option>
-        <option value="女">女</option>
-     
-    </select>
-    
-    <label for="age">年齡：</label>
-    <select id="age">
-        <option value="">請選擇</option>
-        <option value="6歲以下">6歲以下</option>
-        <option value="7歲到12歲">7歲到12歲</option>
-        <option value="13到17歲">13到17歲</option>
-        <option value="18歲以上">18歲以上</option>
-    
-    </select>
-    
+    <div class="form-row">
+       <label for="name" >姓名：</label>
+       <input type="text" id="name" placeholder="輸入姓名">
+    </div>
+    <div class="form-row">
+ 
+       <label for="gender">性別：</label>
+       <select id="gender">
+          <option value="">請選擇</option>
+          <option value="男">男</option>
+          <option value="女">女</option>
+       </select>
+    </div>
+    <div class="form-row">
+       <label for="age">年齡：</label>
+       <select id="age">
+          <option value="">請選擇</option>
+          <option value="7歲到12歲">7歲到12歲</option>
+          <option value="13到17歲">13到17歲</option>
+          <option value="18歲以上">18歲以上</option>
+       </select>
+    </div>
+
     <div id="categories"></div>
     
     <textarea id="customText" class="custom-text" placeholder="心之所向..."></textarea>
