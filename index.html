@@ -143,7 +143,7 @@
             const gender = document.getElementById("gender").value;
             const age = document.getElementById("age").value;
             const customText = document.getElementById("customText").value;
-            const text = `姓名: ${name}\n  性別: ${gender}\n  年齡: ${age}\n  太極武俠夢: ` + Object.values(selectedWords).filter(Boolean).join(" ") + `\n 心之所向： ${customText}`;
+            const text = `姓名: ${name}\n性別: ${gender}\n年齡: ${age}\n太極武俠夢: ` + Object.values(selectedWords).filter(Boolean).join(" ") + `\n心之所向： ${customText}`;
             navigator.clipboard.writeText(text).then(() => {
                 alert("已複製:\n" + text);
             }).catch(err => {
